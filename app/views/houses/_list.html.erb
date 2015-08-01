@@ -1,0 +1,19 @@
+<table class="table table-striped">
+  <tr>
+    <th>Title</th>
+    <th>Address</th>
+    <th>Post Code</th>
+    <th></th>
+  </tr>
+  <%@houses.each do |house|%>
+    <tr>
+      <td><%=link_to house.title, house_path(house)%></td>
+      <td><%=house.address%></td>
+      <td><%=house.postcode%></td>
+      <td>
+        <%=link_to "", edit_house_path(house), class: "glyphicon glyphicon-edit"%>
+        <%=link_to "", house_path(house), method: :delete, class: "glyphicon glyphicon-trash", data: { confirm: "Are you sure?" }%>
+      </td>
+    </tr>
+  <%end%>
+</table>

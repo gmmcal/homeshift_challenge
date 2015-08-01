@@ -22,7 +22,7 @@
         <%unless @house.tenant.nil? %>
           <tr>
             <th>Tenant</th>
-            <td><span class="glyphicon glyphicon-user"></span> <%=@house.tenant%></td>
+            <td><span class="glyphicon glyphicon-user"></span> <%=link_to @house.tenant.name, person_path(@house.tenant) %></td>
           </tr>
         <%else%>
           <tr>

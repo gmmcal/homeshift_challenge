@@ -5,19 +5,19 @@
       <table class="table table-striped">
         <tr>
           <th>Name</th>
-          <td><%=@person.name%></td>
+          <td><span class="glyphicon glyphicon-user"></span> <%=@person.name%></td>
         </tr>
         <tr>
           <th>National Insurance Number</th>
-          <td><%=@person.nin%></td>
+          <td><span class="glyphicon glyphicon-credit-card"></span> <%=@person.nin%></td>
         </tr>
         <%unless @person.house.nil? %>
           <tr>
-            <th>Tenant</th>
-            <td><span class="glyphicon glyphicon-user"></span> <%=@person.house%></td>
+            <th>Rented House</th>
+            <td><span class="glyphicon glyphicon-home"></span> <%=link_to @person.house.title, house_path(@person.house) %></td>
           </tr>
           <tr>
-            <th colspan="2"><%=link_to "Leave house", "#", class: "btn btn-primary"%></th>
+            <th colspan="2"><%=link_to "Vacate house", "#", class: "btn btn-primary"%></th>
           </tr>
         <%end%>
       </table>

@@ -3,6 +3,9 @@ require 'rails_helper'
 RSpec.describe HousesController, type: :controller do
 
   describe "GET #index" do
+    let(:house1) { create(:house) }
+    let(:house2) { create(:house) }
+
     before(:each) do
       get :index
     end
@@ -16,8 +19,29 @@ RSpec.describe HousesController, type: :controller do
     end
 
     it "assigns all houses as @houses" do
-      house = create(:house)
-      expect(assigns(:houses)).to eq([house])
+      expect(assigns(:houses)).to eq([house1, house2])
+    end
+  end
+
+  describe "GET #available" do
+    let(:person) { create(:person) }
+    let(:house1) { create(:house) }
+    let(:house2) { create(:house, tenant: person) }
+
+    before(:each) do
+      get :available
+    end
+
+    it "returns http success" do
+      expect(response).to have_http_status(:success)
+    end
+
+    it "renders the available template" do
+      expect(response).to render_template(:available)
+    end
+
+    it "assigns all houses as @houses" do
+      expect(assigns(:houses)).to eq([house1])
     end
   end
 
