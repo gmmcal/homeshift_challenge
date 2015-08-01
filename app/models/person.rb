@@ -1,4 +1,6 @@
 class Person < ActiveRecord::Base
+  scope :available, -> { where.not(id: House.all.map(&:tenant_id)) }
+
   has_one :house, foreign_key: :tenant_id
 
   validates :name, presence: true

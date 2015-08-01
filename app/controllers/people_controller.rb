@@ -15,7 +15,7 @@ class PeopleController < ApplicationController
     @person = Person.new(person_params)
 
     if @person.save
-      redirect_to people_path, notice: 'Person was successfuly created.'
+      redirect_to person_path(@person), notice: 'Person was successfuly created.'
     else
       render :new
     end
@@ -29,15 +29,24 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:id])
 
     if @person.update(person_params)
-      redirect_to people_path, notice: 'Person was successfuly updated.'
+      redirect_to person_path(@person), notice: 'Person was successfuly updated.'
     else
       render :edit
     end
   end
 
+  def vacate
+    @person = Person.find(params[:id])
+    @person.house = nil
+    @person.save
+
+    redirect_to person_path(@person), notice: 'Person was successfuly updated.'
+  end
+
   def destroy
     @person = Person.find(params[:id])
     @person.destroy
+
     redirect_to people_path, notice: 'Person was successfuly destroyed.'
   end
 

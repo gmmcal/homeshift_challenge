@@ -76,7 +76,7 @@ RSpec.describe PeopleController, type: :controller do
       end
 
       it "redirects to person listing" do
-        expect(response).to redirect_to(people_path)
+        expect(response).to redirect_to(person_path(Person.last))
       end
     end
 
@@ -124,7 +124,7 @@ RSpec.describe PeopleController, type: :controller do
       let(:person_attributes) { attributes_for(:person) }
 
       it "returns http success" do
-        expect(response).to redirect_to(people_path)
+        expect(response).to redirect_to(person_path(Person.last))
       end
 
       it "updates the requested person" do
@@ -154,6 +154,28 @@ RSpec.describe PeopleController, type: :controller do
     end
   end
 
+  describe "PATCH #vacate" do
+    let(:house) { create(:house) }
+    let(:person) { create(:person, house: house) }
+
+    before(:each) do
+      patch :vacate, id: person.id
+    end
+
+    it "returns http success" do
+      expect(response).to redirect_to(person_path(Person.last))
+    end
+
+    it "updates the requested person" do
+      person.reload
+      expect(person.house).to be_nil
+    end
+
+    it "assigns the requested person as @person" do
+      expect(assigns(:person)).to eq(person)
+    end
+  end
+
   describe "DELETE #destroy" do
     let(:person) { create(:person) }
 
@@ -165,7 +187,7 @@ RSpec.describe PeopleController, type: :controller do
       expect(Person.exists?(person.id)).to be(false)
     end
 
-    it "returns http success" do
+    it "redirects to people list" do
       expect(response).to redirect_to(people_path)
     end
   end

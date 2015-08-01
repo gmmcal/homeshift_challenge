@@ -17,7 +17,7 @@
             <td><span class="glyphicon glyphicon-home"></span> <%=link_to @person.house.title, house_path(@person.house) %></td>
           </tr>
           <tr>
-            <th colspan="2"><%=link_to "Vacate house", "#", class: "btn btn-primary"%></th>
+            <th colspan="2"><%=link_to "Vacate house", vacate_person_path(@person), method: :patch, class: "btn btn-primary"%></th>
           </tr>
         <%end%>
       </table>

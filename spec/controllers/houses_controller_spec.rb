@@ -65,6 +65,53 @@ RSpec.describe HousesController, type: :controller do
     end
   end
 
+  describe "GET #assign" do
+    let(:house) { create(:house) }
+    let(:person) { create(:person) }
+
+    before(:each) do
+      get :assign, id: house.id
+    end
+
+    it "returns http success" do
+      expect(response).to have_http_status(:success)
+    end
+
+    it "renders the assign template" do
+      expect(response).to render_template(:assign)
+    end
+
+    it "assigns the requested house as @house" do
+      expect(assigns(:house)).to eq(house)
+    end
+
+    it "assigns all people as @people" do
+      expect(assigns(:people)).to eq([person])
+    end
+  end
+
+  describe "PATCH #patch_assign" do
+    let(:person) { create(:person) }
+    let(:house) { create(:house) }
+
+    before(:each) do
+      patch :patch_assign, id: house.id, person_id: person.id
+    end
+
+    it "returns http success" do
+      expect(response).to redirect_to(house_path(house))
+    end
+
+    it "updates the requested house" do
+      house.reload
+      expect(house.tenant).to eq(person)
+    end
+
+    it "assigns the requested house as @house" do
+      expect(assigns(:house)).to eq(house)
+    end
+  end
+
   describe "GET #new" do
     before(:each) do
       get :new
@@ -100,7 +147,7 @@ RSpec.describe HousesController, type: :controller do
       end
 
       it "redirects to house listing" do
-        expect(response).to redirect_to(houses_path)
+        expect(response).to redirect_to(house_path(House.last))
       end
     end
 
@@ -148,7 +195,7 @@ RSpec.describe HousesController, type: :controller do
       let(:house_attributes) { attributes_for(:house) }
 
       it "returns http success" do
-        expect(response).to redirect_to(houses_path)
+        expect(response).to redirect_to(house_path(House.last))
       end
 
       it "updates the requested house" do
