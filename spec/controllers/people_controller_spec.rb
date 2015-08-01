@@ -16,9 +16,25 @@ RSpec.describe PeopleController, type: :controller do
     end
   end
 
-  describe "GET #create" do
+  describe "POST #create" do
     it "returns http success" do
       post :create, person: attributes_for(:person)
+      expect(response).to redirect_to(people_path)
+    end
+  end
+
+  describe "GET #edit" do
+    it "returns http success" do
+      person = create(:person)
+      get :edit, id: person.id
+      expect(response).to have_http_status(:success)
+    end
+  end
+
+  describe "PATCH #update" do
+    it "returns http success" do
+      person = create(:person)
+      patch :update, id: person.id, person: attributes_for(:person)
       expect(response).to redirect_to(people_path)
     end
   end

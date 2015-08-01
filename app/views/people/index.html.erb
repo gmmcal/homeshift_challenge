@@ -3,11 +3,13 @@
   <tr>
     <th>Name</th>
     <th>NIN</th>
+    <th></th>
   </tr>
   <%@people.each do |person|%>
     <tr>
       <td><%=link_to person.name, "#"%></td>
       <td><%=person.nin%></td>
+      <td><%=link_to "", edit_person_path(person), class: "glyphicon glyphicon-edit"%></td>
     </tr>
   <%end%>
 </table>

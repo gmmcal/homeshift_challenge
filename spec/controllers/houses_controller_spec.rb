@@ -16,10 +16,26 @@ RSpec.describe HousesController, type: :controller do
     end
   end
 
-  describe "GET #create" do
+  describe "POST #create" do
     it "returns http success" do
       post :create, house: attributes_for(:house)
-      expect(response).to redirect_to(root_path)
+      expect(response).to redirect_to(houses_path)
+    end
+  end
+
+  describe "GET #edit" do
+    it "returns http success" do
+      house = create(:house)
+      get :edit, id: house.id
+      expect(response).to have_http_status(:success)
+    end
+  end
+
+  describe "PATCH #create" do
+    it "returns http success" do
+      house = create(:house)
+      patch :update, id: house.id, house: attributes_for(:house)
+      expect(response).to redirect_to(houses_path)
     end
   end
 end
