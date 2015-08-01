@@ -1,0 +1,16 @@
+<h1>Available Houses</h1>
+<table class="table table-striped">
+  <tr>
+    <th>Title</th>
+    <th>Address</th>
+    <th>Post Code</th>
+  </tr>
+  <%@houses.each do |house|%>
+    <tr>
+      <td><%=link_to house.title, "#"%></td>
+      <td><%=house.address%></td>
+      <td><%=house.postcode%></td>
+    </tr>
+  <%end%>
+</table>
+<%=link_to "Add a house", "#", class: "btn btn-primary"%>
