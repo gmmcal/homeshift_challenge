@@ -7,7 +7,7 @@
   </tr>
   <%@people.each do |person|%>
     <tr>
-      <td><%=link_to person.name, "#"%></td>
+      <td><%=link_to person.name, person_path(person) %></td>
       <td><%=person.nin%></td>
       <td>
         <%=link_to "", edit_person_path(person), class: "glyphicon glyphicon-edit"%>

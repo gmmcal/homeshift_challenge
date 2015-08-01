@@ -3,6 +3,10 @@ class HousesController < ApplicationController
     @houses = House.available
   end
 
+  def show
+    @house = House.find(params[:id])
+  end
+
   def new
     @house = House.new
   end

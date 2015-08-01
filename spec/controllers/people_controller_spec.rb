@@ -21,6 +21,26 @@ RSpec.describe PeopleController, type: :controller do
     end
   end
 
+  describe "GET #show" do
+    let(:person) { create(:person) }
+
+    before(:each) do
+      get :show, id: person.id
+    end
+
+    it "returns http success" do
+      expect(response).to have_http_status(:success)
+    end
+
+    it "renders the show template" do
+      expect(response).to render_template(:show)
+    end
+
+    it "assigns the requested person as @person" do
+      expect(assigns(:person)).to eq(person)
+    end
+  end
+
   describe "GET #new" do
     before(:each) do
       get :new

@@ -8,7 +8,7 @@
   </tr>
   <%@houses.each do |house|%>
     <tr>
-      <td><%=link_to house.title, "#"%></td>
+      <td><%=link_to house.title, house_path(house)%></td>
       <td><%=house.address%></td>
       <td><%=house.postcode%></td>
       <td>
