@@ -11,7 +11,7 @@ class HousesController < ApplicationController
     @house = House.new(house_params)
 
     if @house.save
-      redirect_to houses_path, notice: 'House was successfuly created.'
+      redirect_to root_path, notice: 'House was successfuly created.'
     else
       render :new
     end

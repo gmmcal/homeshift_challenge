@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe HousesController, type: :controller do
+RSpec.describe PeopleController, type: :controller do
 
   describe "GET #index" do
     it "returns http success" do
@@ -18,8 +18,8 @@ RSpec.describe HousesController, type: :controller do
 
   describe "GET #create" do
     it "returns http success" do
-      post :create, house: attributes_for(:house)
-      expect(response).to redirect_to(root_path)
+      post :create, person: attributes_for(:person)
+      expect(response).to redirect_to(people_path)
     end
   end
 end

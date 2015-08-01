@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :house do
-    title { Faker::Lorem.words(4) }
+    title { Faker::Lorem.words(4).join(' ') }
     description { Faker::Lorem.paragraph(2) }
     address { Faker::Address.street_address }
     postcode { Faker::Address.zip_code }
