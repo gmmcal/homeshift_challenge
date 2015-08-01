@@ -4,6 +4,10 @@ FactoryGirl.define do
     description { Faker::Lorem.paragraph(2) }
     address { Faker::Address.street_address }
     postcode { Faker::Address.zip_code }
-    tenant nil
+    tenant_id nil
+
+    factory :invalid_house do
+      title nil
+    end
   end
 end

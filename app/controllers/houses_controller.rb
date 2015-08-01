@@ -31,6 +31,12 @@ class HousesController < ApplicationController
     end
   end
 
+  def destroy
+    @house = House.find(params[:id])
+    @house.destroy
+    redirect_to houses_path, notice: 'House was successfuly destroyed.'
+  end
+
   private
     def house_params
       params.require(:house).permit(:title, :description, :address, :postcode)

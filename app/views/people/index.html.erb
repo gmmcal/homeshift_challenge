@@ -9,7 +9,10 @@
     <tr>
       <td><%=link_to person.name, "#"%></td>
       <td><%=person.nin%></td>
-      <td><%=link_to "", edit_person_path(person), class: "glyphicon glyphicon-edit"%></td>
+      <td>
+        <%=link_to "", edit_person_path(person), class: "glyphicon glyphicon-edit"%>
+        <%=link_to "", person_path(person), method: :delete, class: "glyphicon glyphicon-trash", data: { confirm: "Are you sure?" }%>
+      </td>
     </tr>
   <%end%>
 </table>

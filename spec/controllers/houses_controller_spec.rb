@@ -3,38 +3,149 @@ require 'rails_helper'
 RSpec.describe HousesController, type: :controller do
 
   describe "GET #index" do
-    it "returns http success" do
+    before(:each) do
       get :index
+    end
+
+    it "returns http success" do
       expect(response).to have_http_status(:success)
+    end
+
+    it "renders the index template" do
+      expect(response).to render_template(:index)
+    end
+
+    it "assigns all houses as @houses" do
+      house = create(:house)
+      expect(assigns(:houses)).to eq([house])
     end
   end
 
   describe "GET #new" do
-    it "returns http success" do
+    before(:each) do
       get :new
+    end
+
+    it "returns http success" do
       expect(response).to have_http_status(:success)
+    end
+
+    it "renders the new template" do
+      expect(response).to render_template(:new)
+    end
+
+    it "assigns a new house as @house" do
+      expect(assigns(:house)).to be_a_new(House)
     end
   end
 
   describe "POST #create" do
-    it "returns http success" do
-      post :create, house: attributes_for(:house)
-      expect(response).to redirect_to(houses_path)
+    before(:each) do
+      post :create, house: house_attributes
+    end
+
+    context "with valid params" do
+      let(:house_attributes) { attributes_for(:house) }
+
+      it "assigns a newly created house as @house" do
+        expect(assigns(:house)).to be_a(House)
+      end
+
+      it "a new house should be persisted" do
+        expect(assigns(:house)).to be_persisted
+      end
+
+      it "redirects to house listing" do
+        expect(response).to redirect_to(houses_path)
+      end
+    end
+
+    context "with invalid params" do
+      let(:house_attributes) { attributes_for(:invalid_house) }
+
+      it "assigns a newly created but unsaved house as @house" do
+        expect(assigns(:house)).to be_a_new(House)
+      end
+
+      it "re-renders the 'new' template" do
+        expect(response).to render_template("new")
+      end
     end
   end
 
   describe "GET #edit" do
-    it "returns http success" do
-      house = create(:house)
+    let(:house) { create(:house) }
+
+    before(:each) do
       get :edit, id: house.id
+    end
+
+    it "returns http success" do
       expect(response).to have_http_status(:success)
+    end
+
+    it "renders the edit template" do
+      expect(response).to render_template(:edit)
+    end
+
+    it "assigns the requested house as @house" do
+      expect(assigns(:house)).to eq(house)
     end
   end
 
-  describe "PATCH #create" do
-    it "returns http success" do
-      house = create(:house)
-      patch :update, id: house.id, house: attributes_for(:house)
+  describe "PATCH #update" do
+    let(:house) { create(:house) }
+
+    before(:each) do
+      patch :update, id: house.id, house: house_attributes
+    end
+
+    context "with valid params" do
+      let(:house_attributes) { attributes_for(:house) }
+
+      it "returns http success" do
+        expect(response).to redirect_to(houses_path)
+      end
+
+      it "updates the requested house" do
+        house.reload
+        post_update_attributes = house.attributes.inject({}){|attrs,(k,v)| attrs[k.to_sym] = v; attrs}
+        post_update_attributes.delete(:id)
+        post_update_attributes.delete(:created_at)
+        post_update_attributes.delete(:updated_at)
+        expect(house_attributes).to eq(post_update_attributes)
+      end
+
+      it "assigns the requested house as @house" do
+        expect(assigns(:house)).to eq(house)
+      end
+    end
+
+    context "with invalid params" do
+      let(:house_attributes) { attributes_for(:invalid_house) }
+
+      it "assigns the house as @house" do
+        expect(assigns(:house)).to eq(house)
+      end
+
+      it "re-renders the 'edit' template" do
+        expect(response).to render_template("edit")
+      end
+    end
+  end
+
+  describe "DELETE #destroy" do
+    let(:house) { create(:house) }
+
+    before(:each) do
+      delete :destroy, id: house.id
+    end
+
+    it "destroys the requested house" do
+      expect(House.exists?(house.id)).to be(false)
+    end
+
+    it "redirects to the houses list" do
       expect(response).to redirect_to(houses_path)
     end
   end
