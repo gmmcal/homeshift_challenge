@@ -15,3 +15,8 @@ Your rails application needs to be able to check both websites automatically on 
 
 You'll have to use screen scraping, as the websites do not have API's. Deploy the application on Heroku and send URL to the Github repository.
 
+#Business Logic
+
+I'm not familiar with the scope of the project, so I had to make some assumptions
+
+* There's an object called Person, with only name and nin (National Insurance Number)
