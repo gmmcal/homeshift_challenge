@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Person, type: :model do
   it { expect(subject).to validate_presence_of(:name) }
   it { expect(subject).to validate_presence_of(:nin) }
+  it { expect(subject).to have_one(:house) }
 
   it 'has a valid factory' do
     expect(build(:person)).to be_valid

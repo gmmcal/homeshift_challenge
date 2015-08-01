@@ -20,3 +20,4 @@ You'll have to use screen scraping, as the websites do not have API's. Deploy th
 I'm not familiar with the scope of the project, so I had to make some assumptions
 
 * There's an object called Person, with only name and nin (National Insurance Number)
+* There's an object called House, with title, description, address, postcode and tenant (relationship with person)
