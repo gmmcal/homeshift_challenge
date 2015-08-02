@@ -15,9 +15,30 @@ Your rails application needs to be able to check both websites automatically on 
 
 You'll have to use screen scraping, as the websites do not have API's. Deploy the application on Heroku and send URL to the Github repository.
 
-#Business Logic
+##Business Logic
 
 I'm not familiar with the scope of the project, so I had to make some assumptions
 
 * There's an object called Person, with only name and nin (National Insurance Number)
 * There's an object called House, with title, description, address, postcode and tenant (relationship with Person)
+
+To check wheather the house is supplied by one of those companies, I added a **before_save** callback that goes through either one and stores the company on the database. To notify the company about the new tenant that is moving in, I've added a **after_save** callback that only outputs a message that the company was notified.
+
+## The Scrapers
+
+I added the Scrapers as a lib under **lib/scrapers**. I've created a generic one (**Scraper**) that has the default basic funcionality. Since we cannot have a generic scraper, I don't allow this class to be initialized.
+
+Then, we have the two specific scrapers:
+
+* AffinityWater
+* ThamesWater
+
+Those scrapers implements the funcionality and responds to **is_supplier?** method.
+
+On the AffinityWater Scraper, I've used the **Mechanize** gem, that allowed me to navigate on their website like a regular browser. The reason for this is that they use an ASP.NET template page, that has a single form across all pages to manage any post request. On the response page, I check for their html and find out if they supply or not based on a response string.
+
+On the ThamesWater Scraper, I've used a regular post request to their service, on the same way the site does. I figured out that the response is always a redirect to 2 pages, 1 is a failure and the other one is a success page. What I had to do is check where the response was redirecting to to return if it was the supplier or not.
+
+## Tests
+
+This app was build using RSpec for tests. I tried to cover as much as possible on the code. The tests are running a bit slower, but this is intentional. I could mock all requests on scrapers, but I decided not to. In a real world case, I wouldn't event think about not mocking it.

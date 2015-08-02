@@ -1,19 +1,26 @@
-require 'nokogiri'
-
 module Scrapers
   class Scraper
-    def is_supplier?
+    @url = ""
+    @postdata = {}
+
+    def initialize
+      raise
+    end
+
+    def is_supplier?(postcode)
       false
     end
 
     def get_http_response
-      uri = URI.parse(@url)
-      http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = (uri.scheme == 'https')
-      request = Net::HTTP::Post.new(@path)
-      # request.content_type = { charset: 'utf8'}
-      request.set_form_data(@postdata)
-      http.request(request)
+      begin
+        RestClient.post @url, @postdata
+      rescue => e
+        e.response.headers
+      end
+    end
+
+    def notify(house)
+      Rails.logger.info "Notify #{house.supplier} that #{house.tenant.name} is the new tenant of #{house.title}!"
     end
   end
 end

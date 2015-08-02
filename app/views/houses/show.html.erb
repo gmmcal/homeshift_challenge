@@ -19,6 +19,10 @@
           <th>Postcode</th>
           <td><span class="glyphicon glyphicon-envelope"></span> <%=@house.postcode%></td>
         </tr>
+        <tr>
+          <th>Supplier</th>
+          <td><span class="glyphicon glyphicon-envelope"></span> <%=@house.supplier%></td>
+        </tr>
         <%unless @house.tenant.nil? %>
           <tr>
             <th>Tenant</th>
