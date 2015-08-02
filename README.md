@@ -6,8 +6,8 @@ Your challenge, if you choose to accept is to build a rails application which wh
 
 To make this challenge easier, we just need you to be able to work with just two water suppliers:
 
-* Thames water: https://www.thameswater.co.uk/your-account/605.htm
-* Affinity water: https://www.affinitywater.co.uk/our-supply-area-moving-home.aspx (postcode search box on the left bar)
+* Thames water: https://www.thameswater.co.uk/your-account/605.htm (EC2A 4BX)
+* Affinity water: https://www.affinitywater.co.uk/our-supply-area-moving-home.aspx (postcode search box on the left bar) (AL10 9EZ)
 
 You can manually type in postcode on both of those pages to see if either of them supply your property.
 
