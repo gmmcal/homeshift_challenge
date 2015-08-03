@@ -18,13 +18,13 @@ ActiveRecord::Schema.define(version: 20150802200706) do
     t.text     "description"
     t.string   "address"
     t.string   "postcode"
-    t.integer  "tenant_id"
+    t.integer  "person_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "supplier"
   end
 
-  add_index "houses", ["tenant_id"], name: "index_houses_on_tenant_id"
+  add_index "houses", ["person_id"], name: "index_houses_on_person_id"
 
   create_table "people", force: :cascade do |t|
     t.string   "name"

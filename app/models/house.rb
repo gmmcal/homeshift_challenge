@@ -1,5 +1,5 @@
 class House < ActiveRecord::Base
-  belongs_to :tenant, class_name: 'Person'
+  belongs_to :tenant, class_name: 'Person', foreign_key: :person_id
 
   scope :available, -> { where(tenant: nil)}
 
@@ -22,7 +22,7 @@ class House < ActiveRecord::Base
     end
 
     def nofify_supplier
-      if tenant_id_changed? and !tenant.nil? and !supplier.nil?
+      if person_id_changed? and !tenant.nil? and !supplier.nil?
         "Scrapers::#{self.supplier}".to_s.classify.constantize.new.notify(self)
       end
     end
